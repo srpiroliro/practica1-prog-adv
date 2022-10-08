@@ -102,19 +102,7 @@ class Taulell {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-template <typename T>
-int array_size(T ar[]){
-    return sizeof(ar)/sizeof(ar[0]);
-}
-
-bool char_in_array(char c, char array[]){
-    for (int i=0; i<array_size(array); i++){
-        if(c==array[i]) return true;
-    }
-    return false;
-}
-
-int cin_verified_int(int min, int max, string msg="Tria un num. entre", string wrong=":( num. incorrecte. prova unaltre vegada "){
+int cin_verified_int(int min, int max, string msg="Tria un num. entre", string wrong=":( num. incorrecte. prova un altre vegada "){
     int x;
     string rnge=" ["+to_string(min)+", "+to_string(max)+"] : ";
     cout << msg << rnge; cin >> x;
@@ -124,15 +112,6 @@ int cin_verified_int(int min, int max, string msg="Tria un num. entre", string w
     }
     cout << endl;
     return x;
-}
-
-int cin_expected_char(char options[], string wrong=":( char incorrecte. prova unaltre vegada: "){
-    char c;
-    cin >> c;
-    while (!char_in_array(c, options)){
-        cout << wrong << endl;
-        cin >> c;
-    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -149,9 +128,9 @@ int tirada(Taulell &t, int itera){
     return t.getEnceses();
 }
 
-void resum(int hist[], int total_b){
+void resum(int hist[], int t, int total_b){
     cout << "\nHAS ACABAT!"<<endl;
-    for(int i=0; i<array_size(hist); i++){
+    for(int i=0; i<t; i++){
         cout << (i+1) << " -> " << hist[i] << " enceses i " << (total_b-hist[i]) << " apagades." << endl;
     }
 }
@@ -189,8 +168,7 @@ int main() {
                 break;
             }
         }
-        
-        resum(history, total_bomb);
+        resum(history, tirades, total_bomb);
         cont=continuar();
 
         delete history;
