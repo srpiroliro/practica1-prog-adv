@@ -24,6 +24,7 @@ class Bombeta {
         void visualize(){
             cout << ((status)?"■":"□") << ' '; // << ' ' here?
         }
+    
     bool operator==(Bombeta a) {
         return a.getStatus()==getStatus();
     }
@@ -54,13 +55,25 @@ class Taulell {
             }
         }
 
-        void visualitzar() {
+        void visualitzar(){
+            cout << "  ";
+            for(int i=0; i<rows; i++){
+                cout << i << ' ';
+            }
+            cout << endl;
             for(int row=0; row<rows; row++){
                 for(int col=0; col<cols; col++){
-                    container[row][col].visualize();
+                    if (col==0) cout << row << ' ';
+                    else if (col==cols) cout << "hola";
+                    else container[row][col].visualize();
                 }
                 cout << endl;
             }
+            cout << "  ";
+            for(int i=0; i<rows; i++){
+                cout << i << ' ';
+            }
+            cout << endl;
         }
 
         void premerBombeta(int f, int c){
