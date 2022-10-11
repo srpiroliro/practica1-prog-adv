@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-#include "Taulell.h"
+#include "classes/Taulell.h"
 
 using namespace std; 
 
@@ -65,7 +65,7 @@ int main() {
         encendre=cin_verified_int(1,total_bomb,"quantes vols encendre"); // -1 ja que si es fica 64 es guanya
         tirades=cin_verified_int(1,99,"quantes tirades vols fer");
         cout << '\n';
-        
+
         history=new int[tirades];
 
         taulell.encendre(encendre);
