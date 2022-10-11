@@ -1,4 +1,6 @@
 #include <iostream>
+#include <stdlib.h>
+#include <time.h>
 #include "Bombeta.h"
 
 using namespace std; 
@@ -11,6 +13,7 @@ class Taulell {
         Taulell(){
             rows=cols=8;
             enceses=0;
+            srand(time(NULL));
         }
         void encendre(int quantes){
             int x,y,i;
@@ -26,12 +29,19 @@ class Taulell {
         }
 
         void visualitzar(){
+            cout << "  ";
+            for(int i=0; i<rows; i++){
+                cout << i << ' ';
+            }
+            cout << endl;
             for(int row=0; row<rows; row++){
                 for(int col=0; col<cols; col++){
+                    if (col==0) cout << row << ' ';
                     container[row][col].visualize();
                 }
-                cout << endl;
+                cout << "\n";
             }
+            cout << endl;
         }
 
         void premerBombeta(int f, int c){
@@ -46,10 +56,10 @@ class Taulell {
                     bool status=!(container[y][x].getStatus());
                     container[y][x].setStatus(status);
 
-                    cout << x << ", " << y << " - " << status << endl;
-
-                    if(status) enceses++;
-                    else enceses--;
+                    if(status) 
+                        enceses++;
+                    else 
+                        enceses--;
                 }
             }
         }

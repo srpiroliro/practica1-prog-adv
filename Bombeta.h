@@ -19,7 +19,7 @@ class Bombeta {
         }
 
         void visualize(){
-            cout << ((status)?"■":"□") << ' '; // << ' ' here?
+            cout << ((status)?"■":"□") << ' ';
         }
     
     bool operator==(Bombeta a) {
