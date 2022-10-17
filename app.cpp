@@ -63,6 +63,7 @@ bool continuar(){
 bool tornarJugar(Taulell *taulell){
     if(continuar()){
         taulell->apagar();
+        return true;
     } else return false;
 }
 
