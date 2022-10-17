@@ -27,7 +27,7 @@ int tirada(Taulell &t, int itera){
     int x=cin_verified_int(0,t.getCols()-1, "coord x"),
         y=cin_verified_int(0,t.getRows()-1, "coord y");
     cout << '\n';
-    t.premerBombeta(y,x);
+    t.premerBombeta(x,y);
     t.visualitzar();
     cout << "\n===================================" << '\n';
 
@@ -35,10 +35,22 @@ int tirada(Taulell &t, int itera){
 }
 
 void resum(int hist[], int t, int total_b){
+    int darkest=hist[0];
     cout << "\nHAS ACABAT!"<<endl;
     for(int i=0; i<t; i++){
         cout << (i+1) << " -> " << hist[i] << " enceses i " << (total_b-hist[i]) << " apagades." << '\n';
+        if(hist[i]<darkest) darkest=i;
     }
+
+    cout << "\nLa tirada mes fosca ha sigut: " << (darkest+1) << " amb " << hist[darkest] << " enceses" << endl;
+}
+
+int* dades(int total_bombetes){
+    int d[2]={
+        cin_verified_int(1,total_bombetes,"quantes vols encendre"),
+        cin_verified_int(1,99,"quantes tirades vols fer")
+    };
+    return d;
 }
 
 bool continuar(){
@@ -46,6 +58,12 @@ bool continuar(){
     char o; cin >> o;
     cout << '\n' << endl;
     return (char)tolower(o)!='n';
+}
+
+bool tornarJugar(Taulell *taulell){
+    if(continuar()){
+        taulell->apagar();
+    } else return false;
 }
 
 int main() {
@@ -57,12 +75,8 @@ int main() {
     while(cont){
         int *history, tirades, encendre;
 
-        taulell.apagar();
-
-        cout << "===================================" << '\n';
-        cout << "===================================" << "\n\n\n";
-
-        encendre=cin_verified_int(1,total_bomb,"quantes vols encendre"); // -1 ja que si es fica 64 es guanya
+        cout << "===================================" << '\n' << "===================================" << "\n\n\n";
+        encendre=cin_verified_int(1,total_bomb,"quantes vols encendre");
         tirades=cin_verified_int(1,99,"quantes tirades vols fer");
         cout << '\n';
 
@@ -76,16 +90,16 @@ int main() {
             history[tirades_fetes]=tirada(taulell, tirades_fetes);
             
             bool totes_apagades=history[tirades_fetes]==0;
-            if(totes_apagades or history[tirades_fetes]==total_bomb) {
-                cout << ((totes_apagades)?"\nHas perdut! Totes estan apagades!":"\nHas guanyat! Totes estan enceses!") << endl;
+            if(totes_apagades) {
+                cout << "\nHas guanyat! Totes estan apagades!" << endl;
                 break;
             } else tirades_fetes++;
             
         }
         resum(history, tirades_fetes, total_bomb);
-        cont=continuar();
-
         delete history;
+
+        cont=tornarJugar(&taulell);
     }
     cout << "ADEU!" << endl;
     
